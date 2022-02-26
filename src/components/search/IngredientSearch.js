@@ -1,12 +1,19 @@
 import { useState, useEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 
-import { mealListByIngredientEndPoint } from "../API/endpoints";
+import { mealListByIngredientEndPoint } from "../../API/endpoints";
+import { addSelectedIngredient } from "./searchSlice";
 
 const IngredientSearch = () => {
   const [ingredientsList, setIngredientsList] = useState([]);
   const [searchedItems, setSearchedItems] = useState([]);
   const inputRef = useRef();
+
+  const selectedIngredient = useSelector(
+    (state) => state.search.selectedIngredient
+  );
+  const dispatch = useDispatch();
 
   let filteredItems = [];
 
@@ -29,6 +36,11 @@ const IngredientSearch = () => {
           { idIngredient: "noID", strIngredient: "No results found." },
         ])
       : setSearchedItems([]);
+  };
+
+  const handleClickedIngredient = (ingredient) => {
+    console.log(ingredient);
+    dispatch(addSelectedIngredient(ingredient));
   };
 
   return (
@@ -54,12 +66,18 @@ const IngredientSearch = () => {
           ></path>
         </svg>
       </div>
+      <div className="inline-flex">
+        {selectedIngredient.map((ingredient) => (
+          <div>Your selection: {ingredient.strIngredient}</div>
+        ))}
+      </div>
 
       <div className="justify-left bg-white p-2 pl-0 overflow-hidden flex flex-wrap">
         {searchedItems.map((result) => (
           <div
             className="hover:bg-indigo-100 cursor-pointer p-3 border-2 border-indigo-200 rounded m-2 ml-0"
             key={result.idIngredient}
+            onClick={() => handleClickedIngredient(result)}
           >
             {result.strIngredient}
           </div>
