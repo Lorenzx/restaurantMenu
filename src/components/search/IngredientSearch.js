@@ -39,7 +39,6 @@ const IngredientSearch = () => {
   };
 
   const handleClickedIngredient = (ingredient) => {
-    console.log(ingredient);
     dispatch(addSelectedIngredient(ingredient));
   };
 

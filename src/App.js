@@ -1,30 +1,16 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { initializeIcons } from "@fluentui/font-icons-mdl2";
 
-import { mealCategoriesEndPoint } from "./API/endpoints";
 import Header from "./components/layout/Header";
-import Card from "./components/Card";
+import Categories from "./components/categories/Categories";
+
+initializeIcons();
 
 function App() {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get(mealCategoriesEndPoint)
-      .then((res) => setCategories(res.data.categories));
-  }, []);
-
   return (
     <div className="App bg-indigo-100">
       <Header />
       <div className="mb-0 pt-20 flex flex-wrap justify-center">
-        {categories.map((item) => (
-          <Card
-            key={item.idCategory}
-            title={item.strCategory}
-            image={item.strCategoryThumb}
-          ></Card>
-        ))}
+        <Categories />
       </div>
     </div>
   );

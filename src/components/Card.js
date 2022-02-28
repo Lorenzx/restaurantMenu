@@ -1,6 +1,11 @@
-const Card = ({ title, description, image }) => {
+const Card = ({ item, title, image, handleClickedCategory }) => {
   return (
-    <div className="m-2 sm:max-w-sm md:max-w-xs rounded shadow-lg bg-white">
+    <div
+      onClick={() => {
+        handleClickedCategory(item);
+      }}
+      className="m-2 sm:max-w-sm md:max-w-xs rounded shadow-lg bg-white cursor-pointer"
+    >
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2 text-indigo-500">{title}</div>
         <div className="w-full">
