@@ -32,6 +32,7 @@ const Categories = () => {
             title={item.strCategory}
             image={item.strCategoryThumb}
             handleClickedCard={handleClickedCategory}
+            actionButtons={false}
           ></Card>
         </Link>
       ))}

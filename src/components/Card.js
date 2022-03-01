@@ -1,10 +1,23 @@
-const Card = ({ item, title, image, handleClickedCard }) => {
+import { Icon } from "@fluentui/react/lib/Icon";
+
+const Card = ({
+  item,
+  title,
+  image,
+  handleClickedCard,
+  addToFavouritesHandler,
+  addToCartHandler,
+  actionButtons,
+}) => {
   return (
     <div
-      onClick={() => {
-        handleClickedCard(item);
-      }}
-      className="m-2 sm:max-w-sm md:max-w-xs rounded shadow-lg bg-white cursor-pointer"
+      onClick={
+        handleClickedCard &&
+        (() => {
+          handleClickedCard(item);
+        })
+      }
+      className="m-2 sm:max-w-sm md:max-w-xs rounded shadow-lg bg-white"
     >
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2 text-indigo-500">{title}</div>
@@ -13,15 +26,23 @@ const Card = ({ item, title, image, handleClickedCard }) => {
         </div>
       </div>
       <div className="px-6 pt-4 pb-2">
-        {/* Hashtags    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-          #photography
-        </span>
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-          #travel
-        </span>
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-          #winter
-        </span> */}
+        {actionButtons && (
+          <>
+            {" "}
+            <button
+              onClick={() => addToFavouritesHandler(item)}
+              className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+            >
+              <Icon iconName="Heart" className="" />
+            </button>
+            <button
+              onClick={() => addToCartHandler(item)}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Add to Cart <Icon iconName="ShoppingCart" className="" />
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

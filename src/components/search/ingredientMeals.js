@@ -9,7 +9,10 @@ const IngredientMeals = () => {
 
   console.log(filteredMeals);
 
-  const handleClickedCard = (item) => {
+  const addToFavouritesHandler = (item) => {
+    console.log(item);
+  };
+  const addToCartHandler = (item) => {
     console.log(item);
   };
   return (
@@ -21,7 +24,9 @@ const IngredientMeals = () => {
           item={item}
           title={item.strMeal}
           image={item.strMealThumb}
-          handleClickedCard={handleClickedCard}
+          addToFavouritesHandler={addToFavouritesHandler}
+          addToCartHandler={addToCartHandler}
+          actionButtons={true}
         ></Card>
       ))}
     </>

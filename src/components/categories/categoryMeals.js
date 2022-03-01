@@ -16,9 +16,14 @@ const CategoryMeals = () => {
       .then((res) => setFilteredMeals(res.data.meals));
   });
 
-  const handleClickedCard = (item) => {
+  const addToFavouritesHandler = (item) => {
     console.log(item);
   };
+
+  const addToCartHandler = (item) => {
+    console.log(item);
+  };
+
   return (
     <>
       {filteredMeals.map((item) => (
@@ -27,7 +32,9 @@ const CategoryMeals = () => {
           key={item.idMeal}
           title={item.strMeal}
           image={item.strMealThumb}
-          handleClickedCard={() => handleClickedCard(item)}
+          addToFavouritesHandler={() => addToFavouritesHandler(item)}
+          addToCartHandler={() => addToCartHandler(item)}
+          actionButtons={true}
         ></Card>
       ))}
     </>
