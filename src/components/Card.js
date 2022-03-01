@@ -1,8 +1,8 @@
-const Card = ({ item, title, image, handleClickedCategory }) => {
+const Card = ({ item, title, image, handleClickedCard }) => {
   return (
     <div
       onClick={() => {
-        handleClickedCategory(item);
+        handleClickedCard(item);
       }}
       className="m-2 sm:max-w-sm md:max-w-xs rounded shadow-lg bg-white cursor-pointer"
     >
@@ -13,7 +13,7 @@ const Card = ({ item, title, image, handleClickedCategory }) => {
         </div>
       </div>
       <div className="px-6 pt-4 pb-2">
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+        {/* Hashtags    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
           #photography
         </span>
         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
@@ -21,7 +21,7 @@ const Card = ({ item, title, image, handleClickedCategory }) => {
         </span>
         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
           #winter
-        </span>
+        </span> */}
       </div>
     </div>
   );

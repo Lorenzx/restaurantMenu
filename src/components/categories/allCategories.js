@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { mealCategoriesEndPoint } from "../../API/endpoints";
 import { addSelectedCategory } from "./categoriesSlice";
@@ -24,13 +25,15 @@ const Categories = () => {
   return (
     <>
       {categories.map((item) => (
-        <Card
-          item={item}
-          key={item.idCategory}
-          title={item.strCategory}
-          image={item.strCategoryThumb}
-          handleClickedCategory={handleClickedCategory}
-        ></Card>
+        <Link key={item.idCategory + "link"} to="/category/meals">
+          <Card
+            item={item}
+            key={item.idCategory}
+            title={item.strCategory}
+            image={item.strCategoryThumb}
+            handleClickedCard={handleClickedCategory}
+          ></Card>
+        </Link>
       ))}
     </>
   );
