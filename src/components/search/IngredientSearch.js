@@ -51,6 +51,7 @@ const IngredientSearch = () => {
 
   const handleClickedIngredient = (ingredient) => {
     // add selected ingredient to redux selected ingredient state
+    inputRef.current.value = "";
     dispatch(addSelectedIngredient(ingredient));
     console.log(ingredient);
     axios

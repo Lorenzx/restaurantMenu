@@ -5,6 +5,7 @@ import Header from "./components/layout/Header";
 import AllCategories from "./components/categories/allCategories";
 import CategoryMeals from "./components/categories/categoryMeals";
 import IngredientMeals from "./components/search/ingredientMeals";
+import Cart from "./components/cart/cart";
 
 initializeIcons();
 
@@ -17,6 +18,7 @@ function App() {
           <Route index element={<AllCategories />} />
           <Route path="/category/meals" element={<CategoryMeals />} />
           <Route path="/ingredient/meals" element={<IngredientMeals />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </div>
     </div>

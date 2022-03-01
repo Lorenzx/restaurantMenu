@@ -22,12 +22,14 @@ const Header = () => {
           ariaLabel="Favourites"
           className=""
         />
-        <IconButton
-          iconProps={{ iconName: "ShoppingCart" }}
-          title="Cart"
-          ariaLabel="Cart"
-          className=""
-        />
+        <Link to="/cart">
+          <IconButton
+            iconProps={{ iconName: "ShoppingCart" }}
+            title="Cart"
+            ariaLabel="Cart"
+            className=""
+          />
+        </Link>
       </div>
     </header>
   );

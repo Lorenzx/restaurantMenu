@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import { mealCategoriesEndPoint } from "../../API/endpoints";
 import { addSelectedCategory } from "./categoriesSlice";
-import Card from "../Card";
+import Card from "../layout/Card";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);

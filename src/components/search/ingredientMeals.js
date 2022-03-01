@@ -1,23 +1,23 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import Card from "../Card";
+import Card from "../layout/Card";
+import { addProductToCart } from "../cart/cartSlice";
 
 const IngredientMeals = () => {
   const filteredMeals = useSelector(
     (state) => state.search.mealsByIngredientList
   );
 
-  console.log(filteredMeals);
+  const dispatch = useDispatch();
 
   const addToFavouritesHandler = (item) => {
     console.log(item);
   };
   const addToCartHandler = (item) => {
-    console.log(item);
+    dispatch(addProductToCart(item));
   };
   return (
     <>
-      {console.log(filteredMeals)}
       {filteredMeals.map((item) => (
         <Card
           key={item.idMeal}

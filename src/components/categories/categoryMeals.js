@@ -1,15 +1,19 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import axios from "axios";
 
 import { mealsFilteredByCategory } from "../../API/endpoints";
-import Card from "../Card";
+import Card from "../layout/Card";
+import { addProductToCart } from "../cart/cartSlice";
 
 const CategoryMeals = () => {
   const [filteredMeals, setFilteredMeals] = useState([{}]);
   const selectedCategory = useSelector((state) =>
     state.categories.selectedCategory.map((item) => item.strCategory)
   );
+
+  const dispatch = useDispatch();
+
   useState(() => {
     axios
       .get(mealsFilteredByCategory + selectedCategory)
@@ -21,7 +25,7 @@ const CategoryMeals = () => {
   };
 
   const addToCartHandler = (item) => {
-    console.log(item);
+    dispatch(addProductToCart(item));
   };
 
   return (
