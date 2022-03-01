@@ -4,8 +4,11 @@ import axios from "axios";
 import { Icon } from "@fluentui/react/lib/Icon";
 import { Link } from "react-router-dom";
 
-import { allIngredientsListEndPoint } from "../../API/endpoints";
-import { addSelectedIngredient } from "./searchSlice";
+import {
+  allIngredientsListEndPoint,
+  mealsFilteredByIngredient,
+} from "../../API/endpoints";
+import { addSelectedIngredient, getMealsByIngredientList } from "./searchSlice";
 
 const IngredientSearch = () => {
   const [ingredientsList, setIngredientsList] = useState([]);
@@ -21,17 +24,22 @@ const IngredientSearch = () => {
   let filteredItems = [];
 
   useEffect(() => {
+    // retrieve all ingredients list to populate UI search pills
     axios
       .get(allIngredientsListEndPoint)
       .then((res) => setIngredientsList(res.data.meals));
   }, [selectedIngredient]);
 
   const handleSearchInput = () => {
+    // reset selected ingredient redux state
+    dispatch(addSelectedIngredient([]));
+    // filter UI pills by serch input value
     let searchText = inputRef.current.value.toLowerCase();
     resultsDivRef.current.style.display = "flex";
     filteredItems = ingredientsList.filter((item) =>
       item.strIngredient.toLowerCase().startsWith(searchText)
     );
+    // set component state accordingly
     searchText && filteredItems
       ? setSearchedItems(filteredItems)
       : searchText && filteredItems === []
@@ -42,7 +50,12 @@ const IngredientSearch = () => {
   };
 
   const handleClickedIngredient = (ingredient) => {
+    // add selected ingredient to redux selected ingredient state
     dispatch(addSelectedIngredient(ingredient));
+    console.log(ingredient);
+    axios
+      .get(mealsFilteredByIngredient + ingredient.strIngredient)
+      .then((res) => dispatch(getMealsByIngredientList(res.data.meals)));
     resultsDivRef.current.style.display = "none";
   };
 
@@ -62,14 +75,19 @@ const IngredientSearch = () => {
       </div>
 
       <div className="inline-flex">
-        {selectedIngredient.map((ingredient) => (
-          <div
-            key={ingredient.strIngredient}
-            className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-          >
-            Your selection: {ingredient.strIngredient}
-          </div>
-        ))}
+        {selectedIngredient &&
+          selectedIngredient.map(
+            (ingredient) =>
+              ingredient.strIngredient && (
+                <div
+                  key={ingredient.strIngredient}
+                  className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                >
+                  {ingredient.strIngredient &&
+                    "Your selection: " + ingredient.strIngredient}
+                </div>
+              )
+          )}
       </div>
 
       <div

@@ -4,7 +4,7 @@ export const categoriesSlice = createSlice({
   name: "categories",
   initialState: {
     selectedCategory: [],
-    categoriesList: [{}],
+    categoriesList: [],
   },
   reducers: {
     addSelectedCategory: (state, action) => {

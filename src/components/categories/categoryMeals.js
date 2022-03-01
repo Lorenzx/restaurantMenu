@@ -25,10 +25,9 @@ const CategoryMeals = () => {
         <Card
           className="hover:bg-indigo-100 cursor-pointer p-3 border-2 border-indigo-200 rounded m-2 ml-0"
           key={item.idMeal}
-          item={item}
           title={item.strMeal}
           image={item.strMealThumb}
-          handleClickedCard={handleClickedCard}
+          handleClickedCard={() => handleClickedCard(item)}
         ></Card>
       ))}
     </>

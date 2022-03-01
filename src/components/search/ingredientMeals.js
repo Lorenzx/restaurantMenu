@@ -1,27 +1,20 @@
 import { useSelector } from "react-redux";
-import { useState } from "react";
-import axios from "axios";
 
-import { mealsFilteredByIngredient } from "../../API/endpoints";
 import Card from "../Card";
 
 const IngredientMeals = () => {
-  const [filteredMeals, setFilteredMeals] = useState([{}]);
-  const selectedIngredient = useSelector((state) =>
-    state.search.selectedIngredient.map((item) => item.strCategory)
+  const filteredMeals = useSelector(
+    (state) => state.search.mealsByIngredientList
   );
-  useState(() => {
-    axios
-      .get(mealsFilteredByIngredient + selectedIngredient)
-      .then((res) => setFilteredMeals(res.data.meals));
-  }, []);
+
+  console.log(filteredMeals);
 
   const handleClickedCard = (item) => {
     console.log(item);
-    console.log(filteredMeals);
   };
   return (
     <>
+      {console.log(filteredMeals)}
       {filteredMeals.map((item) => (
         <Card
           key={item.idMeal}
