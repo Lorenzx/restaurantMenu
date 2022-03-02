@@ -2,17 +2,18 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Icon } from "@fluentui/react/lib/Icon";
 
-import { removeProductFromCart } from "./cartSlice";
+import { removeProductDuplicates, removeProductFromCart } from "./cartSlice";
 import { addSelectedIngredient } from "../search/searchSlice";
 
 const Categories = () => {
-  const [cart, setCart] = useState([]);
   const cartProducts = useSelector((state) => state.cart.products);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(addSelectedIngredient([]));
+    dispatch(removeProductDuplicates());
+    // remove duplicated products adding quantity for each product
   }, [dispatch]);
 
   const handleRemoveFromCart = (item) => {
@@ -25,7 +26,6 @@ const Categories = () => {
 
   return (
     <>
-      {console.log(cartProducts)}
       {cartProducts &&
         cartProducts.map((item) => (
           <div
@@ -34,11 +34,12 @@ const Categories = () => {
           >
             <h2>{item.strMeal}</h2>
             <img alt={item.strMeal} src={item.strMealThumb} className="" />
+            <span>{item.quantity}</span>
             <button
               onClick={() => handleRemoveFromCart(item)}
               className="flex-end bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
-              Remove from Cart{" "}
+              Remove from Cart
               <Icon iconName="StatusCircleErrorX" className="" />
             </button>
           </div>
@@ -47,7 +48,7 @@ const Categories = () => {
         onClick={() => placeOrder(cartProducts)}
         className="flex-end bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
       >
-        Place order <Icon iconName="Forward" className="" />
+        Place your order <Icon iconName="Forward" className="" />
       </button>
     </>
   );

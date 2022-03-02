@@ -4,6 +4,7 @@ const Card = ({
   item,
   title,
   image,
+  styles,
   handleClickedCard,
   addToFavouritesHandler,
   addToCartHandler,
@@ -17,7 +18,11 @@ const Card = ({
           handleClickedCard(item);
         })
       }
-      className="m-2 sm:max-w-sm md:max-w-xs rounded shadow-lg bg-white"
+      className={
+        styles
+          ? styles
+          : "m-2 sm:max-w-sm md:max-w-xs rounded shadow-lg bg-white"
+      }
     >
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2 text-indigo-500">{title}</div>
@@ -28,7 +33,6 @@ const Card = ({
       <div className="px-6 pt-4 pb-2">
         {actionButtons && (
           <>
-            {" "}
             <button
               onClick={() => addToFavouritesHandler(item)}
               className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
