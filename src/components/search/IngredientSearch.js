@@ -9,6 +9,7 @@ import {
   mealsFilteredByIngredient,
 } from "../../API/endpoints";
 import { addSelectedIngredient, getMealsByIngredientList } from "./searchSlice";
+import { addProductToCart } from "../cart/cartSlice";
 
 const IngredientSearch = () => {
   const [ingredientsList, setIngredientsList] = useState([]);
@@ -32,7 +33,6 @@ const IngredientSearch = () => {
 
   const handleSearchInput = () => {
     // reset selected ingredient redux state
-    dispatch(addSelectedIngredient([]));
     // filter UI pills by serch input value
     let searchText = inputRef.current.value.toLowerCase();
     resultsDivRef.current.style.display = "flex";

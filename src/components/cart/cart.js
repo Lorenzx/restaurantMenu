@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Icon } from "@fluentui/react/lib/Icon";
 
@@ -6,17 +6,18 @@ import { removeProductDuplicates, removeProductFromCart } from "./cartSlice";
 import { addSelectedIngredient } from "../search/searchSlice";
 
 const Categories = () => {
-  const cartProducts = useSelector((state) => state.cart.products);
-
+  const productsQuantities = useSelector(
+    (state) => state.cart.productsQuantities
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(addSelectedIngredient([]));
     dispatch(removeProductDuplicates());
-    // remove duplicated products adding quantity for each product
-  }, [dispatch]);
+  }, []);
 
   const handleRemoveFromCart = (item) => {
+    console.log(item);
     dispatch(removeProductFromCart(item));
   };
 
@@ -26,8 +27,8 @@ const Categories = () => {
 
   return (
     <>
-      {cartProducts &&
-        cartProducts.map((item) => (
+      {productsQuantities &&
+        productsQuantities.map((item) => (
           <div
             key={item.idMeal}
             className="h-14 w-full bg-blue-200 flex bg-white border rounded-lg overflow-hidden"
@@ -45,7 +46,7 @@ const Categories = () => {
           </div>
         ))}
       <button
-        onClick={() => placeOrder(cartProducts)}
+        onClick={() => placeOrder(productsQuantities)}
         className="flex-end bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
       >
         Place your order <Icon iconName="Forward" className="" />

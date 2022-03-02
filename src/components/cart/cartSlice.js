@@ -4,42 +4,60 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState: {
     products: [],
+    productsQuantities: [],
     total: 0,
   },
   reducers: {
     addProductToCart: (state, action) => {
-      state.products = [...state.products, action.payload];
-      state.total++;
+      let quantity = 1;
       // Not allow to add multiple products
-      // state.products.find((item) => item.idMeal === action.payload.idMeal)
-      //   ? (state.products = [...state.products])
-      //   : (state.products = [...state.products, action.payload]);
+      state.products.map((item) =>
+        item.idMeal === action.payload.idMeal
+          ? { ...item, quantity: (quantity += 1) }
+          : null
+      );
+      state.products = [
+        ...state.products,
+        { ...action.payload, quantity: quantity },
+      ];
+      state.total++;
     },
     removeProductFromCart: (state, action) => {
-      state.products = [
-        ...state.products.filter(
-          (item) => item.idMeal !== action.payload.idMeal
-        ),
-      ];
+      if (action.payload.quantity === 1) {
+        state.productsQuantities = [
+          ...state.productsQuantities.filter(
+            (item) => item.idMeal !== action.payload.idMeal
+          ),
+        ];
+        state.products = state.productsQuantities;
+      } else {
+        state.productsQuantities.map((item) =>
+          item.idMeal === action.payload.idMeal ? (item.quantity -= 1) : null
+        );
+        state.products = state.productsQuantities;
+      }
       state.total > 0 ? state.total-- : (state.total = 0);
     },
     removeProductDuplicates: (state, action) => {
       let productsAndQuantities = [];
+
       for (let i = 0; i < state.products.length; i++) {
         let duplicates = state.products.filter(
           (item) => item.idMeal === state.products[i].idMeal
         );
         let quantity = duplicates.length;
+
         duplicates.splice(1, duplicates.length);
 
         duplicates = { ...duplicates[0], quantity };
+
         productsAndQuantities.push(duplicates);
+
+        let jsonObject = productsAndQuantities.map(JSON.stringify);
+
+        let uniqueSet = new Set(jsonObject);
+        state.productsQuantities = Array.from(uniqueSet).map(JSON.parse);
       }
-
-      let jsonObject = productsAndQuantities.map(JSON.stringify);
-
-      let uniqueSet = new Set(jsonObject);
-      state.products = Array.from(uniqueSet).map(JSON.parse);
     },
   },
 });
@@ -48,6 +66,7 @@ export const {
   addProductToCart,
   removeProductFromCart,
   removeProductDuplicates,
+  substractQuantity,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -18,17 +18,18 @@ const IngredientMeals = () => {
   };
   return (
     <>
-      {filteredMeals.map((item) => (
-        <Card
-          key={item.idMeal}
-          item={item}
-          title={item.strMeal}
-          image={item.strMealThumb}
-          addToFavouritesHandler={addToFavouritesHandler}
-          addToCartHandler={addToCartHandler}
-          actionButtons={true}
-        ></Card>
-      ))}
+      {filteredMeals &&
+        filteredMeals.map((item) => (
+          <Card
+            key={item.idMeal}
+            item={item}
+            title={item.strMeal}
+            image={item.strMealThumb}
+            addToFavouritesHandler={addToFavouritesHandler}
+            addToCartHandler={addToCartHandler}
+            actionButtons={true}
+          ></Card>
+        ))}
     </>
   );
 };
