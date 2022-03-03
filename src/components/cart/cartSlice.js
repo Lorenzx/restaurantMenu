@@ -63,6 +63,12 @@ export const cartSlice = createSlice({
     placeOrder: (state, action) => {
       state.orderedProducts = [...state.productsQuantities];
     },
+    clearAllProducts: (state, action) => {
+      state.products = [];
+      state.productsQuantities = [];
+      state.total = 0;
+      state.orderedProducts = [];
+    },
   },
 });
 
@@ -71,6 +77,7 @@ export const {
   removeProductFromCart,
   removeProductDuplicates,
   placeOrder,
+  clearAllProducts,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

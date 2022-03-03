@@ -24,6 +24,9 @@ const Categories = () => {
 
   return (
     <>
+      <h2 className="flex flex-col text-center w-full mb-2">
+        Select meal category
+      </h2>
       {categories.map((item) => (
         <Link key={item.idCategory + "link"} to="/category/meals">
           <Card

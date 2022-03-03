@@ -11,9 +11,6 @@ const IngredientMeals = () => {
 
   const dispatch = useDispatch();
 
-  const addToFavouritesHandler = (item) => {
-    console.log(item);
-  };
   const addToCartHandler = (item) => {
     dispatch(addProductToCart(item));
   };
@@ -29,7 +26,6 @@ const IngredientMeals = () => {
             styles={"md:w-60 justify-evenly"}
             description={item.strDescription}
             image={item.strMealThumb}
-            addToFavouritesHandler={addToFavouritesHandler}
             addToCartHandler={addToCartHandler}
             actionButtons={true}
             modal={true}

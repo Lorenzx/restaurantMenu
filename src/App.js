@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <div className="mb-0 p-2 pt-24 flex flex-wrap justify-center h-fit-content">
+      <div className="mb-0 p-2 pt-28 flex flex-wrap justify-center h-fit-content">
         <Routes>
           <Route index element={<AllCategories />} />
           <Route path="/category/meals" element={<CategoryMeals />} />

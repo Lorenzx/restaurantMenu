@@ -1,9 +1,11 @@
 import { Icon } from "@fluentui/react/lib/Icon";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import "../../styles/modal.css";
 import Button from "../button/button";
+import { clearAllProducts } from "../cart/cartSlice";
 
 const Modal = ({
   item,
@@ -21,13 +23,16 @@ const Modal = ({
 }) => {
   const [orderSent, setOrderSent] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const confirmOrderHandler = () => {
     // send order to redux state
     sendProducts(productsQuantities);
     setOrderSent(true);
+
     // return to hp after 3s
     setTimeout(() => {
+      dispatch(clearAllProducts());
       setOrderSent(false);
       navigate("/");
     }, 3000);
@@ -45,9 +50,7 @@ const Modal = ({
             }
           >
             <div className="px-6 py-4">
-              <div className="font-bold text-xl mb-2 text-indigo-500">
-                {title}
-              </div>
+              <h2>{title}</h2>
               <div className="absolute top-4 right-4">
                 <Icon iconName="ChromeClose" onClick={() => setIsOpen(false)} />
               </div>
@@ -66,7 +69,7 @@ const Modal = ({
                   {productsQuantities.map((item) => (
                     <div
                       key={item.idMeal}
-                      className="w-full flex mt-2 p-2 h-14 w-4/6 bg-blue-200 place-content-between bg-white shadow-md rounded-lg overflow-hidden"
+                      className="w-full flex mt-2 p-2 h-14 w-4/6 border-1 border-grey-100 bg-white place-content-between bg-white shadow-md rounded-lg overflow-hidden"
                     >
                       <h2 className="flex items-center w-4/6">
                         {item.strMeal}
@@ -76,17 +79,28 @@ const Modal = ({
                       </span>
                     </div>
                   ))}
-                  <Button
-                    iconName={"Forward"}
-                    text={"Place your order"}
-                    textStyle={"pr-2"}
-                    btnStyle={
-                      "mt-4 flex justify-end pr-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                    }
-                    clickHandler={() => {
-                      confirmOrderHandler();
-                    }}
-                  />
+                  <div className="flex justify-around">
+                    <Button
+                      text={"Add more meals"}
+                      iconName={"Back"}
+                      textStyle={"pr-2"}
+                      btnStyle={
+                        "mt-4 flex justify-end pr-2 bg-orange-400 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded shadow-md"
+                      }
+                      clickHandler={() => setIsOpen(false)}
+                    />
+                    <Button
+                      iconName={"Forward"}
+                      text={"Place your order"}
+                      textStyle={"pr-2"}
+                      btnStyle={
+                        "mt-4 flex justify-end pr-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow-md"
+                      }
+                      clickHandler={() => {
+                        confirmOrderHandler();
+                      }}
+                    />
+                  </div>
                 </>
               )}
               {/* order sent confirmation */}
@@ -102,12 +116,13 @@ const Modal = ({
               )}
               {actionButtons && (
                 <>
-                  <div className="text-right pb-2">
+                  <div className="text-right pb-2 flex justify-end">
                     <Button
                       iconName={"ShoppingCart"}
                       text={"Add to Cart"}
+                      textStyle={"text-sm font-bold"}
                       btnStyle={
-                        "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        "flex place-content-between bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded"
                       }
                       clickHandler={() => addToCartHandler(item)}
                     />

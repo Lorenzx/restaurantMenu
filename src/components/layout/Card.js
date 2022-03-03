@@ -41,21 +41,21 @@ const Card = ({
             : "flex flex-col m-2 sm:max-w-sm md:w-40 rounded shadow-lg bg-white"
         }
       >
-        <div className="px-6 py-2">
-          <div className="font-bold text-md mb-2 text-indigo-500">{title}</div>
+        <div className="px-2 py-2">
+          <h2>{title}</h2>
           <div className="w-full" onClick={() => setIsOpen(!isOpen)}>
             <img src={image} alt="recipe thumb" />
           </div>
         </div>
-        <div className="px-6 py-2">
+        <div className="px-2 py-2">
           {actionButtons && (
             <>
               <Button
                 text={"Add to Cart"}
-                textStyle={"pr-2"}
+                textStyle={"pr-2 text-sm font-bold"}
                 iconName={"ShoppingCart"}
                 btnStyle={
-                  "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  "flex place-content-between bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded w-full shadow-md"
                 }
                 clickHandler={() => addToCartHandler(item)}
               />

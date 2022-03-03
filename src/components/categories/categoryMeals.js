@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+
+import { Spinner } from "@fluentui/react";
 import axios from "axios";
 
 import { mealsFilteredByCategory } from "../../API/endpoints";
@@ -9,6 +11,7 @@ import NotFoundMessage from "../../pages/404";
 
 const CategoryMeals = () => {
   const [filteredMeals, setFilteredMeals] = useState([{}]);
+  const [loading, setIsLoading] = useState(false);
   const selectedCategory = useSelector((state) =>
     state.categories.selectedCategory.map((item) => item.strCategory)
   );
@@ -16,14 +19,12 @@ const CategoryMeals = () => {
   const dispatch = useDispatch();
 
   useState(() => {
-    axios
-      .get(mealsFilteredByCategory + selectedCategory)
-      .then((res) => setFilteredMeals(res.data.meals));
+    setIsLoading(true);
+    axios.get(mealsFilteredByCategory + selectedCategory).then((res) => {
+      setFilteredMeals(res.data.meals);
+      setIsLoading(false);
+    });
   });
-
-  const addToFavouritesHandler = (item) => {
-    console.log(item);
-  };
 
   const addToCartHandler = (item) => {
     dispatch(addProductToCart(item));
@@ -31,7 +32,13 @@ const CategoryMeals = () => {
 
   return (
     <>
-      {filteredMeals ? (
+      {loading ? (
+        <Spinner
+          label="Loading selected category meals..."
+          ariaLive="assertive"
+          labelPosition="right"
+        />
+      ) : filteredMeals ? (
         filteredMeals.map((item) => (
           <Card
             className="hover:bg-indigo-100 cursor-pointer p-3 border-2 border-indigo-200 rounded m-2 ml-0"
@@ -39,7 +46,6 @@ const CategoryMeals = () => {
             title={item.strMeal}
             styles={"md:w-60 justify-evenly"}
             image={item.strMealThumb}
-            addToFavouritesHandler={() => addToFavouritesHandler(item)}
             addToCartHandler={() => addToCartHandler(item)}
             actionButtons={true}
             modal={true}

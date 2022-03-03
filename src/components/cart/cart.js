@@ -38,7 +38,7 @@ const Categories = () => {
         productsQuantities.map((item) => (
           <div
             key={item.idMeal}
-            className="flex mt-2 p-2 h-14 w-4/6 bg-blue-200 place-content-between bg-white shadow-md rounded-lg overflow-hidden"
+            className="flex mt-2 p-2 h-14 w-4/6 bg-white place-content-between bg-white shadow-md rounded-lg overflow-hidden"
           >
             <h2 className="flex items-center w-4/6">{item.strMeal}</h2>
             <img
@@ -49,7 +49,7 @@ const Categories = () => {
             <span className="flex items-center font-bold">{item.quantity}</span>
             <Button
               clickHandler={() => handleRemoveFromCart(item)}
-              btnStyle="flex items-center text-black bg-slate-500 py-1 px-2 rounded"
+              btnStyle="flex items-center text-black bg-slate-500 py-1 px-2 rounded shadow-md"
               iconName="StatusCircleErrorX"
               iconStyle={"text-white text-bold"}
             />
@@ -64,7 +64,7 @@ const Categories = () => {
             iconName={"Forward"}
             clickHandler={() => setIsOpen(true)}
             btnStyle={
-              "mt-4 flex justify-end pr-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              "mt-4 flex justify-end pr-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow-md"
             }
           />
           <Modal

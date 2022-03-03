@@ -13,6 +13,7 @@ import { addSelectedIngredient, getMealsByIngredientList } from "./searchSlice";
 const IngredientSearch = () => {
   const [ingredientsList, setIngredientsList] = useState([]);
   const [searchedItems, setSearchedItems] = useState([]);
+
   const inputRef = useRef();
   const resultsDivRef = useRef();
 
@@ -25,9 +26,9 @@ const IngredientSearch = () => {
 
   useEffect(() => {
     // retrieve all ingredients list to populate UI search pills
-    axios
-      .get(allIngredientsListEndPoint)
-      .then((res) => setIngredientsList(res.data.meals));
+    axios.get(allIngredientsListEndPoint).then((res) => {
+      setIngredientsList(res.data.meals);
+    });
   }, [selectedIngredient]);
 
   const handleSearchInput = () => {
@@ -52,59 +53,62 @@ const IngredientSearch = () => {
     // add selected ingredient to redux selected ingredient state
     inputRef.current.value = "";
     dispatch(addSelectedIngredient(ingredient));
-    console.log(ingredient);
     axios
       .get(mealsFilteredByIngredient + ingredient.strIngredient)
-      .then((res) => dispatch(getMealsByIngredientList(res.data.meals)));
+      .then((res) => {
+        dispatch(getMealsByIngredientList(res.data.meals));
+      });
     resultsDivRef.current.style.display = "none";
   };
 
   return (
     <>
-      <div className="flex rounded p-2 flex-start">
-        <Icon iconName="Search" className="items-center flex px-2" />
-        <input
-          type="text"
-          name="searchField"
-          placeholder="Choose your favourite ingredient"
-          className="border-2 border-indigo-400  flex placeholder:italic placeholder:text-slate-400"
-          size="27"
-          ref={inputRef}
-          onChange={() => handleSearchInput()}
-        ></input>
-      </div>
+      <div className="mt-6">
+        <div className="flex rounded items-center flex-start">
+          <Icon iconName="Search" className="items-center flex px-2" />
+          <input
+            type="text"
+            name="searchField"
+            placeholder="Choose your favourite ingredient"
+            className="w-8/12 border-2 pl-2 p-1 border-blue-400 rounded-full flex justify-left placeholder:italic placeholder:text-slate-400"
+            ref={inputRef}
+            onChange={() => handleSearchInput()}
+          ></input>
+        </div>
 
-      {selectedIngredient &&
-        selectedIngredient.map(
-          (ingredient) =>
-            ingredient.strIngredient && (
-              <div
-                key={ingredient.strIngredient}
-                className="inline-flex bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-              >
-                {ingredient.strIngredient &&
-                  "Meals with: " + ingredient.strIngredient}
-              </div>
-            )
-        )}
+        {selectedIngredient &&
+          selectedIngredient.map(
+            (ingredient) =>
+              ingredient.strIngredient && (
+                <div
+                  key={ingredient.strIngredient}
+                  className="w-max mt-2 bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                >
+                  {ingredient.strIngredient &&
+                    "Meals with: " + ingredient.strIngredient}
+                </div>
+              )
+          )}
 
-      <div
-        ref={resultsDivRef}
-        className="justify-left bg-white p-2 pl-0 overflow-hidden flex flex-wrap"
-      >
-        {searchedItems.map((result) => (
-          <>
-            <Link key={result.idIngredient + "-link"} to="/ingredient/meals">
-              <div
-                className="hover:bg-indigo-100 cursor-pointer p-3 border-2 border-indigo-200 rounded m-2 ml-0"
-                key={result.idIngredient}
-                onClick={() => handleClickedIngredient(result)}
-              >
-                {result.strIngredient}
-              </div>
-            </Link>
-          </>
-        ))}
+        <div
+          ref={resultsDivRef}
+          className="justify-left bg-white p-2 pl-0 overflow-hidden flex flex-wrap"
+        >
+          {/*searched items filter*/}
+          {searchedItems.map((result) => (
+            <>
+              <Link key={result.idIngredient + "-link"} to="/ingredient/meals">
+                <div
+                  className="hover:bg-blue-100 cursor-pointer p-3 border-2 border-blue-200 rounded m-2 ml-0"
+                  key={result.idIngredient}
+                  onClick={() => handleClickedIngredient(result)}
+                >
+                  {result.strIngredient}
+                </div>
+              </Link>
+            </>
+          ))}
+        </div>
       </div>
     </>
   );

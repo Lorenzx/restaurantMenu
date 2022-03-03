@@ -1,9 +1,9 @@
-import { IconButton } from "@fluentui/react/lib/Button";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import IngredientSearch from "../search/IngredientSearch";
 import Logo from "./Logo";
+import Button from "../button/button";
 
 const Header = () => {
   const totalProductsInCart = useSelector((state) => state.cart.total);
@@ -15,19 +15,22 @@ const Header = () => {
           <Logo />
         </Link>
       </div>
-      <div className="w-8/12">
+      <div className="flex flex-col w-8/12">
         <IngredientSearch />
       </div>
-      <div className="md:flex items-center text-center justify-evenly h-full">
-        <Link to="/cart">
-          <IconButton
-            iconProps={{ iconName: "ShoppingCart" }}
+      <div className="w-2/12">
+        {/* cart button */}
+        <Link
+          className=" p-4 mt-3 font-bold md:flex w-10/12 text-white rounded  justify-center bg-blue-600 shadow-md"
+          to="/cart"
+        >
+          <span className="pr-2">{totalProductsInCart}</span>
+          <Button
+            iconName="ShoppingCart"
             title="Cart"
             ariaLabel="Cart"
             className="w-full p-2"
-          >
-            <span>{totalProductsInCart}</span>
-          </IconButton>
+          ></Button>
         </Link>
       </div>
     </header>
