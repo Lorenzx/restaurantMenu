@@ -9,7 +9,6 @@ import {
   mealsFilteredByIngredient,
 } from "../../API/endpoints";
 import { addSelectedIngredient, getMealsByIngredientList } from "./searchSlice";
-import { addProductToCart } from "../cart/cartSlice";
 
 const IngredientSearch = () => {
   const [ingredientsList, setIngredientsList] = useState([]);
@@ -96,15 +95,17 @@ const IngredientSearch = () => {
         className="justify-left bg-white p-2 pl-0 overflow-hidden flex flex-wrap"
       >
         {searchedItems.map((result) => (
-          <Link key={result.idIngredient + "-link"} to="/ingredient/meals">
-            <div
-              className="hover:bg-indigo-100 cursor-pointer p-3 border-2 border-indigo-200 rounded m-2 ml-0"
-              key={result.idIngredient}
-              onClick={() => handleClickedIngredient(result)}
-            >
-              {result.strIngredient}
-            </div>
-          </Link>
+          <>
+            <Link key={result.idIngredient + "-link"} to="/ingredient/meals">
+              <div
+                className="hover:bg-indigo-100 cursor-pointer p-3 border-2 border-indigo-200 rounded m-2 ml-0"
+                key={result.idIngredient}
+                onClick={() => handleClickedIngredient(result)}
+              >
+                {result.strIngredient}
+              </div>
+            </Link>
+          </>
         ))}
       </div>
     </>

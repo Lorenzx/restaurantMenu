@@ -16,20 +16,28 @@ const IngredientMeals = () => {
   const addToCartHandler = (item) => {
     dispatch(addProductToCart(item));
   };
+
   return (
     <>
-      {filteredMeals &&
+      {filteredMeals ? (
         filteredMeals.map((item) => (
           <Card
             key={item.idMeal}
             item={item}
             title={item.strMeal}
+            description={item.strDescription}
             image={item.strMealThumb}
             addToFavouritesHandler={addToFavouritesHandler}
             addToCartHandler={addToCartHandler}
             actionButtons={true}
+            modal={true}
           ></Card>
-        ))}
+        ))
+      ) : (
+        <div className="font-bold text-center mt-20">
+          No meals available for this ingredient, please change ingredient
+        </div>
+      )}
     </>
   );
 };

@@ -11,9 +11,9 @@ initializeIcons();
 
 function App() {
   return (
-    <div className="App bg-indigo-100">
+    <div className="App">
       <Header />
-      <div className="mb-0 pt-20 flex flex-wrap justify-center">
+      <div className="mb-0 pt-20 flex flex-wrap justify-center h-fit-content">
         <Routes>
           <Route index element={<AllCategories />} />
           <Route path="/category/meals" element={<CategoryMeals />} />
