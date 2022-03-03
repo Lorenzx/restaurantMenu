@@ -61,8 +61,8 @@ const IngredientSearch = () => {
 
   return (
     <>
-      <div className="flex w-full rounded p-2 flex-start">
-        <Icon iconName="Search" className="flex px-2" />
+      <div className="flex rounded p-2 flex-start">
+        <Icon iconName="Search" className="items-center flex px-2" />
         <input
           type="text"
           name="searchField"
@@ -74,21 +74,19 @@ const IngredientSearch = () => {
         ></input>
       </div>
 
-      <div className="inline-flex">
-        {selectedIngredient &&
-          selectedIngredient.map(
-            (ingredient) =>
-              ingredient.strIngredient && (
-                <div
-                  key={ingredient.strIngredient}
-                  className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                >
-                  {ingredient.strIngredient &&
-                    "Your selection: " + ingredient.strIngredient}
-                </div>
-              )
-          )}
-      </div>
+      {selectedIngredient &&
+        selectedIngredient.map(
+          (ingredient) =>
+            ingredient.strIngredient && (
+              <div
+                key={ingredient.strIngredient}
+                className="inline-flex bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              >
+                {ingredient.strIngredient &&
+                  "Meals with: " + ingredient.strIngredient}
+              </div>
+            )
+        )}
 
       <div
         ref={resultsDivRef}

@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 import { mealsFilteredByCategory } from "../../API/endpoints";
 import Card from "../layout/Card";
 import { addProductToCart } from "../cart/cartSlice";
+import NotFoundMessage from "../../pages/404";
 
 const CategoryMeals = () => {
   const [filteredMeals, setFilteredMeals] = useState([{}]);
@@ -37,20 +37,20 @@ const CategoryMeals = () => {
             className="hover:bg-indigo-100 cursor-pointer p-3 border-2 border-indigo-200 rounded m-2 ml-0"
             key={item.idMeal}
             title={item.strMeal}
+            styles={"md:w-60 justify-evenly"}
             image={item.strMealThumb}
             addToFavouritesHandler={() => addToFavouritesHandler(item)}
             addToCartHandler={() => addToCartHandler(item)}
             actionButtons={true}
+            modal={true}
           ></Card>
         ))
       ) : (
-        <div className="font-bold text-center mt-20">
-          No meals available, please change category
-          <br />
-          <div className="border-2 border-slate-300 mt-2 p-2 font-normal bg-white rounded">
-            <Link to={"/"}>Back to Category selection</Link>
-          </div>
-        </div>
+        <NotFoundMessage
+          message={"No meals available, please select another category"}
+          linkText={"Back to Category selection"}
+          linkUrl={"/"}
+        />
       )}
     </>
   );

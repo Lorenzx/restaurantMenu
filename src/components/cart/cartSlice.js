@@ -6,6 +6,7 @@ export const cartSlice = createSlice({
     products: [],
     productsQuantities: [],
     total: 0,
+    orderedProducts: [],
   },
   reducers: {
     addProductToCart: (state, action) => {
@@ -59,6 +60,9 @@ export const cartSlice = createSlice({
         state.productsQuantities = Array.from(uniqueSet).map(JSON.parse);
       }
     },
+    placeOrder: (state, action) => {
+      state.orderedProducts = [...state.productsQuantities];
+    },
   },
 });
 
@@ -66,7 +70,7 @@ export const {
   addProductToCart,
   removeProductFromCart,
   removeProductDuplicates,
-  substractQuantity,
+  placeOrder,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
