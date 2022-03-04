@@ -14,7 +14,10 @@ const Logo = () => {
   };
 
   return (
-    <div onClick={handleLogoClick} className="xs:w-full md:w-4/6 lg:w-2/4 pl-2">
+    <div
+      onClick={handleLogoClick}
+      className="xs:w-full mt-6 ml-2 md:w-9/12 lg:w-2/4 pl-2"
+    >
       <img alt="Dummy Logo" src={restaurantLogo} />
     </div>
   );

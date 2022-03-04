@@ -22,6 +22,8 @@ export const cartSlice = createSlice({
         { ...action.payload, quantity: quantity },
       ];
       state.total++;
+
+      state.addedProduct = true;
     },
     removeProductFromCart: (state, action) => {
       if (action.payload.quantity === 1) {

@@ -5,7 +5,7 @@ const NotFoundMessage = ({ message, linkUrl, linkText }) => {
     <div className="font-bold text-center mt-20">
       {message}
       <br />
-      <div className="border-2 border-slate-300 mt-2 p-2 font-normal bg-white rounded">
+      <div className="max-w-fit inline-block px-4 border border-slate-600 mt-4 p-2 font-normal bg-white rounded shadow-md">
         <Link to={linkUrl}>{linkText}</Link>
       </div>
     </div>

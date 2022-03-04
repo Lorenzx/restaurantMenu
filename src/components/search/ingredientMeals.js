@@ -23,7 +23,7 @@ const IngredientMeals = () => {
             key={item.idMeal}
             item={item}
             title={item.strMeal}
-            styles={"md:w-60 justify-evenly"}
+            styles={"md:w-60 justify-between"}
             description={item.strDescription}
             image={item.strMealThumb}
             addToCartHandler={addToCartHandler}

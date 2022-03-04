@@ -26,9 +26,12 @@ const IngredientSearch = () => {
 
   useEffect(() => {
     // retrieve all ingredients list to populate UI search pills
-    axios.get(allIngredientsListEndPoint).then((res) => {
-      setIngredientsList(res.data.meals);
-    });
+    axios
+      .get(allIngredientsListEndPoint)
+      .then((res) => {
+        setIngredientsList(res.data.meals);
+      })
+      .catch((err) => console.log(err));
   }, [selectedIngredient]);
 
   const handleSearchInput = () => {
@@ -57,7 +60,8 @@ const IngredientSearch = () => {
       .get(mealsFilteredByIngredient + ingredient.strIngredient)
       .then((res) => {
         dispatch(getMealsByIngredientList(res.data.meals));
-      });
+      })
+      .catch((err) => console.log(err));
     resultsDivRef.current.style.display = "none";
   };
 
@@ -70,7 +74,7 @@ const IngredientSearch = () => {
             type="text"
             name="searchField"
             placeholder="Choose your favourite ingredient"
-            className="w-8/12 border-2 pl-2 p-1 border-blue-400 rounded-full flex justify-left placeholder:italic placeholder:text-slate-400"
+            className="active:border-blue-400 w-8/12 border pl-2 p-1 border-gray-600 rounded-full flex justify-left placeholder:italic placeholder:text-slate-400"
             ref={inputRef}
             onChange={() => handleSearchInput()}
           ></input>
@@ -92,14 +96,14 @@ const IngredientSearch = () => {
 
         <div
           ref={resultsDivRef}
-          className="justify-left bg-white p-2 pl-0 overflow-hidden flex flex-wrap"
+          className="justify-left mt-2 ml-2 bg-white p-2 pl-0 overflow-hidden flex flex-wrap"
         >
           {/*searched items filter*/}
           {searchedItems.map((result) => (
             <>
               <Link key={result.idIngredient + "-link"} to="/ingredient/meals">
                 <div
-                  className="hover:bg-blue-100 cursor-pointer p-3 border-2 border-blue-200 rounded m-2 ml-0"
+                  className="shadow-md hover:bg-blue-100 cursor-pointer p-3 border-2 border-blue-300 rounded m-2 ml-0"
                   key={result.idIngredient}
                   onClick={() => handleClickedIngredient(result)}
                 >

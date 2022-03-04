@@ -1,6 +1,6 @@
 import { Icon } from "@fluentui/react/lib/Icon";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import "../../styles/modal.css";
@@ -22,6 +22,8 @@ const Modal = ({
   productsQuantities,
 }) => {
   const [orderSent, setOrderSent] = useState(false);
+  const totalProductsInCart = useSelector((state) => state.cart.total);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -39,14 +41,14 @@ const Modal = ({
   };
   return (
     <>
-      {/* products modal template*/}
+      {/* products image zoom modal template*/}
       {isOpen && (
         <div id="modalBG" className="pt-20 text-center darkBG">
           <div
             className={
               styles
                 ? styles
-                : "inline-block max-h-max m-2 sm:max-w-4/12 md:w-8/12 rounded shadow-lg bg-white w-full relative "
+                : "inline-block max-h-max m-2 mt-8 sm:max-w-4/12 md:w-8/12 rounded shadow-lg bg-white w-full relative "
             }
           >
             <div className="px-6 py-4">
@@ -79,7 +81,10 @@ const Modal = ({
                       </span>
                     </div>
                   ))}
-                  <div className="flex justify-around">
+                  <div className="flex justify-end font-bold mt-2 mb-2">
+                    Total meals: {totalProductsInCart}
+                  </div>
+                  <div className="flex justify-around mb-2">
                     <Button
                       text={"Add more meals"}
                       iconName={"Back"}
@@ -87,7 +92,7 @@ const Modal = ({
                       btnStyle={
                         "mt-4 flex justify-end pr-2 bg-orange-400 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded shadow-md"
                       }
-                      clickHandler={() => setIsOpen(false)}
+                      clickHandler={() => navigate("/")}
                     />
                     <Button
                       iconName={"Forward"}
@@ -108,9 +113,13 @@ const Modal = ({
                 <>
                   <div className="text-green-600 font-bold">
                     <p>
-                      Order has been sent! <Icon iconName="CheckMark" />
+                      <div>
+                        Order has been sent! <Icon iconName="CheckMark" />
+                      </div>
                     </p>
-                    <p>returning to home page...</p>
+                    <div>
+                      <p>returning to home page...</p>
+                    </div>
                   </div>
                 </>
               )}
@@ -120,7 +129,7 @@ const Modal = ({
                     <Button
                       iconName={"ShoppingCart"}
                       text={"Add to Cart"}
-                      textStyle={"text-sm font-bold"}
+                      textStyle={"text-sm font-bold pr-2"}
                       btnStyle={
                         "flex place-content-between bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded"
                       }

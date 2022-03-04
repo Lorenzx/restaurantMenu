@@ -15,6 +15,8 @@ const Categories = () => {
   const productsQuantities = useSelector(
     (state) => state.cart.productsQuantities
   );
+  const totalProductsInCart = useSelector((state) => state.cart.total);
+
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -46,7 +48,9 @@ const Categories = () => {
               alt={item.strMeal}
               src={item.strMealThumb}
             />
+
             <span className="flex items-center font-bold">{item.quantity}</span>
+
             <Button
               clickHandler={() => handleRemoveFromCart(item)}
               btnStyle="flex items-center text-black bg-slate-500 py-1 px-2 rounded shadow-md"
@@ -57,24 +61,29 @@ const Categories = () => {
         ))}
       {/*if there are products, show place order button outside the products list for loop*/}
       {productsQuantities.length > 0 && (
-        <div className="mt-6 flex border-t-2 border-grey-100 w-4/6 justify-end">
-          <Button
-            text={"Place your order"}
-            textStyle={"pr-2"}
-            iconName={"Forward"}
-            clickHandler={() => setIsOpen(true)}
-            btnStyle={
-              "mt-4 flex justify-end pr-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow-md"
-            }
-          />
-          <Modal
-            sendProducts={sendProducts}
-            orderRecap={true}
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            productsQuantities={productsQuantities}
-          />
-        </div>
+        <>
+          <div className="mt-6 flex w-4/6 justify-end font-bold">
+            Total meals: {totalProductsInCart}
+          </div>
+          <div className="mt-6 flex border-t-2 border-grey-100 w-4/6 justify-end">
+            <Button
+              text={"Place your order"}
+              textStyle={"pr-2"}
+              iconName={"Forward"}
+              clickHandler={() => setIsOpen(true)}
+              btnStyle={
+                "mt-4 flex justify-end pr-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow-md"
+              }
+            />
+            <Modal
+              sendProducts={sendProducts}
+              orderRecap={true}
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              productsQuantities={productsQuantities}
+            />
+          </div>
+        </>
       )}
       {/* no products in cart*/}
       {productsQuantities.length <= 0 && (
@@ -86,7 +95,6 @@ const Categories = () => {
                 Please select a meal by category or by ingredient in the search
                 field above.
               </p>
-              <br />
             </>
           }
           linkText={"Back to Category selection"}

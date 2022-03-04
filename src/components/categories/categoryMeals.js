@@ -12,6 +12,7 @@ import NotFoundMessage from "../../pages/404";
 const CategoryMeals = () => {
   const [filteredMeals, setFilteredMeals] = useState([{}]);
   const [loading, setIsLoading] = useState(false);
+
   const selectedCategory = useSelector((state) =>
     state.categories.selectedCategory.map((item) => item.strCategory)
   );
@@ -20,10 +21,13 @@ const CategoryMeals = () => {
 
   useState(() => {
     setIsLoading(true);
-    axios.get(mealsFilteredByCategory + selectedCategory).then((res) => {
-      setFilteredMeals(res.data.meals);
-      setIsLoading(false);
-    });
+    axios
+      .get(mealsFilteredByCategory + selectedCategory)
+      .then((res) => {
+        setFilteredMeals(res.data.meals);
+        setIsLoading(false);
+      })
+      .catch((err) => console.log(err));
   });
 
   const addToCartHandler = (item) => {
@@ -44,7 +48,7 @@ const CategoryMeals = () => {
             className="hover:bg-indigo-100 cursor-pointer p-3 border-2 border-indigo-200 rounded m-2 ml-0"
             key={item.idMeal}
             title={item.strMeal}
-            styles={"md:w-60 justify-evenly"}
+            styles={"md:w-60 justify-between"}
             image={item.strMealThumb}
             addToCartHandler={() => addToCartHandler(item)}
             actionButtons={true}
