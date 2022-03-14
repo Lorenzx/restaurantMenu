@@ -1,13 +1,15 @@
-import { Link } from "react-router-dom";
+import Button from "../components/button/button";
 
 const NotFoundMessage = ({ message, linkUrl, linkText }) => {
   return (
-    <div className="font-bold text-center mt-20">
+    <div className="font-bold text-center mt-20 bg-white p-4 rounded">
       {message}
       <br />
-      <div className="max-w-fit inline-block px-4 border border-slate-600 mt-4 p-2 font-normal bg-white rounded shadow-md">
-        <Link to={linkUrl}>{linkText}</Link>
-      </div>
+      <Button
+        btnStyle="p-2 pl-4 pr-4 text-white rounded font-bold bg-yellow-500 hover:bg-yellow-700"
+        link={linkUrl}
+        text={linkText}
+      />
     </div>
   );
 };

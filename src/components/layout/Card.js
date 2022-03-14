@@ -55,7 +55,7 @@ const Card = ({
                 textStyle={"pr-2 text-sm font-bold"}
                 iconName={"ShoppingCart"}
                 btnStyle={
-                  "flex place-content-between bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded w-full shadow-md"
+                  "flex place-content-between bg-orange-500 hover:bg-orange-700 text-white py-1 px-4 rounded w-full shadow-md"
                 }
                 clickHandler={() => addToCartHandler(item)}
               />

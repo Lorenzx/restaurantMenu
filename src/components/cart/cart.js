@@ -62,8 +62,10 @@ const Categories = () => {
       {/*if there are products, show place order button outside the products list for loop*/}
       {productsQuantities.length > 0 && (
         <>
-          <div className="mt-6 flex w-4/6 justify-end font-bold">
-            Total meals: {totalProductsInCart}
+          <div className="mt-6 flex w-4/6 justify-end">
+            <span className="font-bold bg-white pt-2 pb-2 pl-4 pr-4 rounded-full">
+              Total meals: {totalProductsInCart}
+            </span>
           </div>
           <div className="mt-6 flex border-t-2 border-grey-100 w-4/6 justify-end">
             <Button

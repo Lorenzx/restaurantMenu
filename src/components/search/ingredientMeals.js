@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Card from "../layout/Card";
 import NotFoundMessage from "../../pages/404";
 import { addProductToCart } from "../cart/cartSlice";
+import { randomNumber } from "../../utils/helpersFuncs";
 
 const IngredientMeals = () => {
   const filteredMeals = useSelector(
@@ -20,7 +21,7 @@ const IngredientMeals = () => {
       {filteredMeals.length > 0 ? (
         filteredMeals.map((item) => (
           <Card
-            key={item.idMeal}
+            key={item.idMeal + randomNumber()}
             item={item}
             title={item.strMeal}
             styles={"md:w-60 justify-between"}

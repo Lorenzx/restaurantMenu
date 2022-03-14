@@ -9,6 +9,7 @@ import {
   mealsFilteredByIngredient,
 } from "../../API/endpoints";
 import { addSelectedIngredient, getMealsByIngredientList } from "./searchSlice";
+import { randomNumber } from "../../utils/helpersFuncs";
 
 const IngredientSearch = () => {
   const [ingredientsList, setIngredientsList] = useState([]);
@@ -25,13 +26,14 @@ const IngredientSearch = () => {
   let filteredItems = [];
 
   useEffect(() => {
+    let isSubscribed = true;
     // retrieve all ingredients list to populate UI search pills
     axios
       .get(allIngredientsListEndPoint)
-      .then((res) => {
-        setIngredientsList(res.data.meals);
-      })
+      .then((res) => (isSubscribed ? setIngredientsList(res.data.meals) : null))
+
       .catch((err) => console.log(err));
+    return () => (isSubscribed = false);
   }, [selectedIngredient]);
 
   const handleSearchInput = () => {
@@ -104,7 +106,7 @@ const IngredientSearch = () => {
               <Link key={result.idIngredient + "-link"} to="/ingredient/meals">
                 <div
                   className="shadow-md hover:bg-blue-100 cursor-pointer p-3 border-2 border-blue-300 rounded m-2 ml-0"
-                  key={result.idIngredient}
+                  key={result.idIngredient + randomNumber()}
                   onClick={() => handleClickedIngredient(result)}
                 >
                   {result.strIngredient}

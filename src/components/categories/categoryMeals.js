@@ -8,6 +8,7 @@ import { mealsFilteredByCategory } from "../../API/endpoints";
 import Card from "../layout/Card";
 import { addProductToCart } from "../cart/cartSlice";
 import NotFoundMessage from "../../pages/404";
+import { randomNumber } from "../../utils/helpersFuncs";
 
 const CategoryMeals = () => {
   const [filteredMeals, setFilteredMeals] = useState([{}]);
@@ -46,7 +47,7 @@ const CategoryMeals = () => {
         filteredMeals.map((item) => (
           <Card
             className="hover:bg-indigo-100 cursor-pointer p-3 border-2 border-indigo-200 rounded m-2 ml-0"
-            key={item.idMeal}
+            key={item.idMeal + randomNumber()}
             title={item.strMeal}
             styles={"md:w-60 justify-between"}
             image={item.strMealThumb}

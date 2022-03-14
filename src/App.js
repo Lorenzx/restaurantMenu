@@ -11,17 +11,19 @@ initializeIcons();
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <div className="mb-0 p-2 pt-32 flex flex-wrap justify-center h-fit-content">
-        <Routes>
-          <Route index element={<AllCategories />} />
-          <Route path="/category/meals" element={<CategoryMeals />} />
-          <Route path="/ingredient/meals" element={<IngredientMeals />} />
-          <Route path="/cart" element={<Cart />} />
-        </Routes>
+    <>
+      <div className="app-background">
+        <Header />
+        <div className="mb-0 p-2 pt-32 flex flex-wrap justify-center h-fit-content">
+          <Routes>
+            <Route index element={<AllCategories />} />
+            <Route path="/category/meals" element={<CategoryMeals />} />
+            <Route path="/ingredient/meals" element={<IngredientMeals />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

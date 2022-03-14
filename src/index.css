@@ -4,6 +4,10 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans&family=Oleo+Script&display=swap");
 
+.app-background {
+  background: url("../src/assets/tablecloth-1280.jpg");
+  background-size: contain;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
