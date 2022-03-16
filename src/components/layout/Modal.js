@@ -58,7 +58,7 @@ const Modal = ({
               </div>
               <div className="mb-2 text-indigo-300">{description}</div>
               {image && (
-                <div className="w-full">
+                <div className="w-full flex justify-center">
                   <img src={image} alt="recipe thumb" />
                 </div>
               )}
@@ -131,7 +131,7 @@ const Modal = ({
                       text={"Add to Cart"}
                       textStyle={"text-sm font-bold pr-2"}
                       btnStyle={
-                        "flex place-content-between bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded"
+                        "flex place-content-between bg-orange-500 hover:bg-orange-700 text-white py-1 px-4 rounded"
                       }
                       clickHandler={() => addToCartHandler(item)}
                     />
